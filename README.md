@@ -4,6 +4,6 @@
 
 A simplified version of twitter.
 
-### Tech Stack
+### Techologies Used
 
 ### Getting Started
