@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Welcome To Twitty</h1>
-<hr>
-<p>The place to put up your random shower thoughts, or cute animal pics</p>
+<h1>Twitty</h1>
 
 {% for tweet in tweets %}
-<div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ Tw }}</span>
-        <p>{{ tweet.content }}</p>
-        <p>{{ tweet.user }}</p>
-        <p>By: {{ user }}</p>
+<a href="{% url 'detail' tweet.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ Tw }}</span>
+            <p>{{ tweet.content }}</p>
+            <p>{{ tweet.user }}</p>
+            <p>By: {{ user }}</p>
+        </div>
     </div>
-</div>
+</a>
 {% endfor %}
 
 {% endblock %}
