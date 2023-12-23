@@ -3,9 +3,12 @@
 
 <div class="card">
     <div class="card-content">
-        <span class="card-title">{{ Tw }}</span>
-        <p>{{ tweet.content }}</p>
+        <span class="card-title">{{ tweet.content }}</span>
+        <p>@{{ tweet.created_at }}</p>
         <p>by: {{ tweet.user }}</p>
+    </div>
+    <div class="card-content">
+        <span class="card-title">Comments would go here</span>
     </div>
 </div>
 
