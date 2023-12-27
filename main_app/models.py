@@ -12,3 +12,6 @@ class Tweet(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'tweet_id': self.id})
+    
+    class Meta:
+        ordering = ['-created_at']
