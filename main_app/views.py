@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from .models import Tweet
 from .forms import TweetForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 @login_required
@@ -23,6 +24,14 @@ def create(request):
         new_tweet.user = request.user
         new_tweet.save()
         return redirect('/')
+    
+class TweetUpdate(LoginRequiredMixin, UpdateView):
+  model = Tweet
+  fields = ['content']
+
+class TweetDelete(LoginRequiredMixin, DeleteView):
+  model = Tweet
+  success_url = '/'
 
 def about(request):
     return render(request, 'about.html')
