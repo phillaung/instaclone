@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tweet
+from .models import Tweet, Comment
 from .forms import TweetForm
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,11 @@ def home(request):
 @login_required
 def detail(request, tweet_id):
     tweet = Tweet.objects.get(id=tweet_id)
-    return render(request, 'detail.html', { 'tweet': tweet })
+    comments = Comment.objects.filter(tweet=tweet_id)
+    return render(request, 'detail.html', { 
+       'tweet': tweet,
+       'comments': comments,
+    })
 
 @login_required
 def create(request):

@@ -15,17 +15,22 @@
 
 <hr/>
 
-<h3>Comments</h3>
+<h4>Comments</h4>
 
 <div class="card">
+    {% for comment in comments %}
     <div class="card-content">
-        <span class="card-title">Comment 1</span>
+        <span class="card-title">{{ comment.content }}</span>
+        <p>{{ comment.created_at }} by {{ comment.user }}</p>
     </div>
-</div>
-
-<div class="card">
+    {% endfor %}
+    <hr/>
     <div class="card-content">
-        <span class="card-title">Comment 2</span>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="content" placeholder="Add a comment">
+            <input type="submit" value="submit!" class="btn">
+        </form>
     </div>
 </div>
 
