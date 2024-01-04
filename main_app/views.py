@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Tweet, Comment
-from .forms import TweetForm
+from .forms import TweetForm, CommentForm
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,13 +21,23 @@ def detail(request, tweet_id):
     })
 
 @login_required
-def create(request):
+def tweets_create(request):
     form = TweetForm(request.POST)
     if form.is_valid():
         new_tweet = form.save(commit=False)
         new_tweet.user = request.user
         new_tweet.save()
         return redirect('/')
+    
+@login_required
+def comments_create(request, tweet_id):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.user = request.user
+        new_comment.tweet = Tweet.objects.get(id=tweet_id)
+        new_comment.save()
+        return redirect('detail', tweet_id=tweet_id)
     
 class TweetUpdate(LoginRequiredMixin, UpdateView):
   model = Tweet
